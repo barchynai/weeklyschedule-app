@@ -1,9 +1,11 @@
-import ScheduleTable from './components/ScheduleTable.jsx';
+import './App.css';
+import ScheduleTable from './components/ScheduleTable';
+
 
 function App() {
   return (
     <div className="App">
-      <ScheduleTable/>
+  <ScheduleTable/>
     </div>
   );
 }

@@ -1,127 +1,115 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import "../App.css"
+
 
 const ScheduleTable = () => {
-  const [schedule, setSchedule] = useState({
-    Anton: {
-      "Mon": "",
-      "Tue": "",
-      "Wed": "",
-      "Thu": "",
-      "Fri": "",
-      "Sat": "",
-      "Sun": ""
-    },
-    Oleg: {
-        "Mon": "",
-        "Tue": "",
-        "Wed": "",
-        "Thu": "",
-        "Fri": "",
-        "Sat": "",
-        "Sun": ""
-    },
-    Ivan: {
-        "Mon": "",
-        "Tue": "",
-        "Wed": "",
-        "Thu": "",
-        "Fri": "",
-        "Sat": "",
-        "Sun": ""
-    },
-    Petr: {
-        "Mon": "",
-        "Tue": "",
-        "Wed": "",
-        "Thu": "",
-        "Fri": "",
-        "Sat": "",
-        "Sun": ""
-    },
-  });
+  const [lessons, setLessons] = useState([
+    { teacher: 'Anton', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '', sunday: '' },
+    { teacher: 'Oleg', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '', sunday: '' },
+    { teacher: 'Ivan', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '', sunday: '' },
+    { teacher: 'Petr', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '', sunday: '' },
+  ]);
 
-  const handleChange = (event, day, person) => {
-    setSchedule({
-      ...schedule,
-      [day]: {
-        ...schedule[day],
-        [person]: event.target.value,
-      },
+  const handleChange = (event, teacher, day) => {
+    const { value } = event.target;
+    setLessons(prevLessons => {
+      const updatedLessons = [...prevLessons];
+      const teacherIndex = updatedLessons.findIndex(lesson => lesson.teacher === teacher);
+      updatedLessons[teacherIndex][day] = value;
+      return updatedLessons;
     });
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Mon</th>
-          <th>Tue</th>
-          <th>Wed</th>
-          <th>Thu</th>
-          <th>Fri</th>
-          <th>Sat</th>
-          <th>Sun</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.keys(schedule).map((day) => (
-          <tr key={day}>
-            <td>{day}</td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Mon"]}
-                onChange={(event) => handleChange(event, day, "Mon")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Tue"]}
-                onChange={(event) => handleChange(event, day, "Tue")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Wed"]}
-                onChange={(event) => handleChange(event, day, "Wed")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Thu"]}
-                onChange={(event) => handleChange(event, day, "Thu")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Fri"]}
-                onChange={(event) => handleChange(event, day, "Fri")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Sat"]}
-                onChange={(event) => handleChange(event, day, "Sat")}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={schedule[day]["Sun"]}
-                onChange={(event) => handleChange(event, day, "Sun")}
-              />
-            </td>
+    <div>
+      <h1>Lesson Scheduler</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {lessons.map(lesson => (
+            <tr key={lesson.teacher}>
+              <td>{lesson.teacher}</td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.monday}
+                  onChange={e => handleChange(e, lesson.teacher, 'monday')}
+                  style={{ backgroundColor: lesson.monday ? '#87CEEB' : '' }}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.tuesday}
+                  onChange={e => handleChange(e, lesson.teacher, 'tuesday')}
+                  style={{ backgroundColor: lesson.tuesday ? '#87CEEB' : '' }}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.wednesday}
+                  onChange={e => handleChange(e, lesson.teacher, 'wednesday')}
+                  style={{ backgroundColor: lesson.wednesday ? '#87CEEB' : '' }}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.thursday}
+                  onChange={e => handleChange(e, lesson.teacher, 'thursday')}
+                  style={{ backgroundColor: lesson.thursday ? '#87CEEB' : '' }}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.friday}
+                  onChange={e => handleChange(e, lesson.teacher, 'friday')}
+                  style={{ backgroundColor: lesson.friday ? '#87CEEB' : '' }}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.saturday}
+                  onChange={e => handleChange(e, lesson.teacher, 'saturday')}
+                  disabled
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="lesson-input"
+                  value={lesson.sunday}
+                  onChange={e => handleChange(e, lesson.teacher, 'sunday')}
+                  disabled
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
 export default ScheduleTable;
+
