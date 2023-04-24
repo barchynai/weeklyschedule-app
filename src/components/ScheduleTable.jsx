@@ -22,7 +22,7 @@ const ScheduleTable = () => {
 
   return (
     <div>
-      <h1>Lesson Scheduler</h1>
+      <h1>Scheduler</h1>
       <table>
         <thead>
           <tr>
